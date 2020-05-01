@@ -1,0 +1,34 @@
+{
+  "name": "todo-list-fastapi",
+  "version": "1.0.0",
+  "description": "practice project",
+  "main": "src/main.py",
+  "license": "MIT",
+  "scripts": {
+    "start": "pipenv run uvicorn src.main:app --host 0.0.0.0 --port 5000",
+    "build": "make build-docker",
+    "lint": "make lint",
+    "test": "make test",
+    "release": "standard-version",
+    "version": "echo v$npm_package_version"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "husky": "^4.2.5",
+    "standard-version": "^7.1.0"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "skipCI": false,
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run lint && npm run test && npm run build",
+      "pre-push": "npm run lint"
+    }
+  }
+}
