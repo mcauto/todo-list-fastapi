@@ -1,17 +1,16 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: python
+name: Lint & Test
 
 on: [push]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: [3.8]
-        node-version: [10.20.1]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -28,20 +27,3 @@ jobs:
       - name: Test with pytest
         run: |
           make test
-      - name: Show current changelog
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-        run: |
-          npm install yarn
-          yarn install
-          make current_changelog
-      - name: Commit files
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Add changes" -a
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
