@@ -27,3 +27,6 @@ jobs:
       - name: Test with pytest
         run: |
           make test
+      - name: Show current changelog
+        run: |
+          make current_changelog
