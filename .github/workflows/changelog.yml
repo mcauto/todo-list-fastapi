@@ -5,17 +5,14 @@ on: [push]
 
 jobs:
   changelog:
+    name: Make changelog
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.20.1]
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node ${{ matrix.node-version }}
       - uses: actions/setup-node@v1
-      - name: Show current changelog
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 10.20.1
+      - name: Show current changelog
         run: |
           npm install yarn
           yarn install
