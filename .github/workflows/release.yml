@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10.20.1
+      - name: Install dependencies
+        run: |
+          npm install yarn
+          yarn install
       - name: Commit files
         run: |
           yarn release
@@ -27,5 +31,4 @@ jobs:
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git push --follow-tags origin ${{ github.head_ref }}
+          tags: true
