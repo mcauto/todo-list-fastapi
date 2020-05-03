@@ -1,6 +1,0 @@
-.pytest_cache
-.vscode
-.dockergnore
-.gitignore
-README.md
-.venv
