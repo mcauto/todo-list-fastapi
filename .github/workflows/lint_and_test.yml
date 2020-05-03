@@ -6,7 +6,7 @@ name: Lint & Test
 on: [push]
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
