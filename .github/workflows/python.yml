@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
+        node-version: [10.20.1]
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -28,5 +29,19 @@ jobs:
         run: |
           make test
       - name: Show current changelog
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
         run: |
+          npm install yarn
+          yarn install
           make current_changelog
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add changes" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
