@@ -23,10 +23,9 @@ jobs:
           yarn install
       - name: Commit files
         run: |
-          yarn release
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "docs: add changelog" -a CHANGELOG.md
+          yarn release
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
