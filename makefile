@@ -58,6 +58,7 @@ pycodestyle: ref venv-dev
 	pipenv run $(PYCODESTYLE) --first $(PYTHONFILES)
 .PHONY: pycodestyle
 
+# vscode의 formatting 도구로 black을 사용
 black: ref venv-dev
 	@/bin/sh -c "echo \"${GREEN}[black 시작]${NC}\""
 	pipenv run black -t $(PYTHON_VERSION) -l $(PYTHON_LINE_LENGTH) $(PYTHONFILES)

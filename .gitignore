@@ -14,3 +14,6 @@ __pycache__
 # python coverage
 .coverage
 cov.xml
+
+# coverage page
+public
