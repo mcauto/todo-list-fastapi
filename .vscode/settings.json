@@ -1,0 +1,26 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.mypy_cache": true,
+        "**/.benchmarks": true,
+        "**/.venv": true,
+        "**/node_modules": true,
+        "**/public": true,
+        "**/__pycache__": true,
+        "**/.pytest_cache": true
+    },
+    "editor.formatOnSave": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=80"
+    ],
+    "pythonTestExplorer.testFramework": "pytest",
+    "python.testing.pytestEnabled": true
+}

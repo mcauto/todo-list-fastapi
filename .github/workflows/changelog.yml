@@ -1,0 +1,21 @@
+---
+name: Changelog
+
+on: [push]
+
+jobs:
+  changelog:
+    name: Make changelog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10.20.1
+      - name: Show current changelog
+        run: |
+          npm install yarn
+          yarn install
+          make current_changelog

@@ -1,0 +1,19 @@
+# python dependencies
+.venv
+
+# javascript dependencies
+node_modules
+
+# python static analysis cache
+.mypy_cache
+
+# python compile cache
+__pycache__
+.pyc
+
+# python coverage
+.coverage
+cov.xml
+
+# coverage page
+public
