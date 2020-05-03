@@ -33,6 +33,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           yarn release
+          git push --follow-tags origin master
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
