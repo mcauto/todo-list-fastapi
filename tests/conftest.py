@@ -8,14 +8,14 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.main import create_app
-from src.routes import health
+from src.routes import api_v1
 
 
 @pytest.fixture(scope="session")
 def app():
     """ test app """
     app = create_app()
-    app.include_router(health, prefix="/health")
+    app.include_router(api_v1, prefix="/api/v1")
     return app
 
 
