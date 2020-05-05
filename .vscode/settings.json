@@ -9,7 +9,6 @@
         "**/.benchmarks": true,
         "**/.venv": true,
         "**/node_modules": true,
-        "**/public": true,
         "**/__pycache__": true,
         "**/.pytest_cache": true
     },
