@@ -1,8 +1,6 @@
 """
 main.py
 """
-import time
-
 from fastapi import FastAPI
 from .routes import api_v1
 
