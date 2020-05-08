@@ -23,6 +23,8 @@ npm install yarn && yarn install --dev # ${PWD}/node_modules
 
 ### Run
 
+#### 터미널에서 실행하기
+
 ```bash
 $ pipenv run uvicorn src.main:app --host 0.0.0.0 --port 5000
 Loading .env environment variables…
@@ -32,9 +34,51 @@ INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
 ```
 
-swagger: http://0.0.0.0:5000/docs
+#### vscode에서 실행하기
 
-redoc: http://0.0.0.0:5000/redoc
+```json
+// .vscode/launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: FastAPI",
+            "type": "python",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "src.main:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "5000"
+            ],
+            "console": "integratedTerminal",
+            "subProcess": true
+        }
+    ]
+}
+```
+
+`.vscode/launch.json` 작성 후 `ctrl+shift+d`  -> 초록색 세모 버튼 클릭
+
+![launch](docs/launch.png)
+
+디버그 컨트롤러
+
+![running](docs/running.png)
+
+콘솔 확인
+
+![running2](docs/running2.png)
+
+swagger: http://localhost:5000/docs
+
+![swagger](docs/swagger.png)
+
+redoc: http://localhost:5000/redoc
+
+![redoc](docs/redoc.png)
 
 ### Code quality
 
