@@ -16,6 +16,7 @@ requests ="*"
 # lint library
 mypy = "*"
 pycodestyle = "*"
+pylint = "*"
 # 19.10b0 설치 호환 버그로 version fixed
 black = "==19.3b0"
 

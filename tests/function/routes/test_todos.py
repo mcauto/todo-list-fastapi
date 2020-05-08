@@ -2,6 +2,7 @@
 routes/todos.py 테스트
 """
 from http import HTTPStatus
+from starlette.testclient import TestClient
 import pytest
 import functools
 
@@ -18,7 +19,9 @@ import functools
         ["GET", "todos", HTTPStatus.NOT_FOUND],
     ],
 )
-def test_todos(client, method, uri, expect):
+def test_todos(
+    client: TestClient, method: str, uri: str, expect: HTTPStatus
+) -> None:
     """ test health """
     func = {
         "GET": functools.partial(client.get, url=f"/api/v1/{uri}"),

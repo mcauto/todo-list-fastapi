@@ -5,21 +5,22 @@ fixture
 """
 
 import pytest
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
+from fastapi.applications import FastAPI
 
 from src.main import create_app
 from src.routes import api_v1
 
 
-@pytest.fixture(scope="session")
-def app():
+@pytest.fixture
+def app() -> FastAPI:
     """ test app """
     app = create_app()
     app.include_router(api_v1, prefix="/api/v1")
     return app
 
 
-@pytest.fixture(scope="session")
-def client(app):
+@pytest.fixture
+def client(app: FastAPI) -> TestClient:
     """ test client """
-    yield TestClient(app)
+    return TestClient(app)

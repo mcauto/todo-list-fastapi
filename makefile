@@ -10,12 +10,8 @@ RELEASE:=${CI_COMMIT_SHA} # 또는 ${TAG} release format을 원하면 바꿀 수
 
 PYCODESTYLE = pycodestyle
 MYPY = mypy
-# W0107: pass
-# W0511: TODO, FIXME
-# W0621: pytest.fixture Redefining
-# R0903: Too few public method
-# C0103: UPPER_CASE naming style (invalid-name)
-PYLINTFLAGS = --verbose --reports=no --output-format=colorized --disable=W0511,W0621,R0903,W0107,C0103
+# no-member: mypy가 찾아줌
+PYLINTFLAGS = --verbose --reports=no --output-format=colorized --errors-only --disable=no-member --enable=unused-import
 
 PYTHONFILES := $(shell find . -name '*.py' | grep -v .venv)
 PYTHON_VERSION = py38
