@@ -21,7 +21,24 @@ sudo PIPENV_VENV_IN_PROJECT=true pipenv install --dev # ${PWD}/.venv
 npm install yarn && yarn install --dev # ${PWD}/node_modules
 ```
 
-### Lint
+### Run
+
+```bash
+$ pipenv run uvicorn src.main:app --host 0.0.0.0 --port 5000
+Loading .env environment variables…
+INFO:     Started server process [1539]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+```
+
+swagger: http://0.0.0.0:5000/docs
+
+redoc: http://0.0.0.0:5000/redoc
+
+### Code quality
+
+#### Lint
 
 ```bash
 make lint
@@ -44,7 +61,7 @@ Loading .env environment variables…
 Success: no issues found in 11 source files
 ```
 
-### Test
+#### Test
 
 ```bash
 make test
