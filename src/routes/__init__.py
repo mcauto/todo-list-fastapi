@@ -10,5 +10,5 @@ __all__ = ["api_v1", "health_router", "todos_router"]
 
 api_v1 = APIRouter()
 
-api_v1.include_router(health_router, prefix="/health")
-api_v1.include_router(todos_router, prefix="/todos")
+api_v1.include_router(health_router, prefix="/health", tags=["manage"])
+api_v1.include_router(todos_router, prefix="/todos", tags=["todos"])
