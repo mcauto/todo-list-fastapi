@@ -3,7 +3,6 @@ config 테스트
 """
 import os
 from src.config import Settings
-from pydantic import HttpUrl
 from pydantic.env_settings import SettingsError
 import pytest
 
@@ -20,7 +19,7 @@ import pytest
 def test_set_cors_allows(urls: str) -> None:
     os.environ["CORS_ALLOWS"] = urls
     try:
-        settings = Settings()
+        Settings()
     except SettingsError as err:
         assert False
     else:
@@ -30,7 +29,7 @@ def test_set_cors_allows(urls: str) -> None:
 def test_set_cors_allows_failure() -> None:
     os.environ["CORS_ALLOWS"] = "2130706433"  # 127.0.0.1
     try:
-        settings = Settings()
+        Settings()
     except ValueError:
         assert True
     else:

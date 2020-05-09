@@ -60,12 +60,17 @@ black: ref venv-dev
 	pipenv run black -t $(PYTHON_VERSION) -l $(PYTHON_LINE_LENGTH) $(PYTHONFILES)
 .PHONY: black
 
+pylint: ref venv-dev
+	@/bin/sh -c "echo \"${GREEN}[pylint 시작]${NC}\""
+	pipenv run pylint $(PYLINTFLAGS) $(PYTHONFILES)
+.PHONY: fast-pylint
+
 mypy: ref venv-dev
 	@/bin/sh -c "echo \"${GREEN}[정적분석 시작]${NC}\""
 	pipenv run $(MYPY) --config-file mypy.ini $(PYTHONFILES)
 .PHONY: mypy
 
-lint: pycodestyle mypy
+lint: pycodestyle mypy pylint
 .PHONY: lint
 
 test: ref venv-dev
