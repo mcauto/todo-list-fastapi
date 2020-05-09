@@ -17,7 +17,6 @@ class Settings(BaseSettings):
 
     @validator("CORS_ALLOWS", pre=True)
     def __set_cors_allows(cls, v: Union[str, List[str]]) -> List[str]:  # noqa
-        result = v
         if isinstance(v, str) and not v.startswith("["):
             result = [i.strip() for i in v.split(",")]
         elif isinstance(v, List):
