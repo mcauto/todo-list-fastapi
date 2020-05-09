@@ -21,5 +21,6 @@
         "--line-length=80"
     ],
     "pythonTestExplorer.testFramework": "pytest",
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "editor.fontFamily": "D2Coding"
 }

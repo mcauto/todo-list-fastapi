@@ -3,8 +3,8 @@ todos.py
 """
 from typing import Optional, List, Dict
 
-from fastapi import APIRouter
-from fastapi import Path
+from fastapi.routing import APIRouter
+from fastapi.param_functions import Path
 from fastapi.exceptions import HTTPException
 from fastapi import status
 from pydantic import BaseModel
@@ -78,12 +78,12 @@ def __get_all() -> List[TodoItem]:
 
 
 @todos.post("", status_code=status.HTTP_201_CREATED, response_model=TodoItem)
-async def create_todo(todo: TodoCreateRequest):
+async def create_todo(todo: TodoCreateRequest) -> TodoItem:
     """ create todo """
     return __create_todo(todo)
 
 
-def __create_todo(todo: TodoCreateRequest):
+def __create_todo(todo: TodoCreateRequest) -> TodoItem:
     next_seqno = __get_last_seqno() + 1
     new_todo = TodoItem(seqno=next_seqno, **todo.dict())
     __fake_todos[next_seqno] = new_todo
@@ -95,7 +95,7 @@ def __create_todo(todo: TodoCreateRequest):
 )
 async def update_todo(
     todo_update_request: TodoUpdateRequest, seqno: int = __valid_seqno
-):
+) -> TodoItem:
     """ update todo """
     todo = __get_todo(seqno=seqno)
     updated_todo = __update_todo(

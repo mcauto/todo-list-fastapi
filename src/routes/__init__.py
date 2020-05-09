@@ -1,14 +1,14 @@
 """
 routes
 """
-from fastapi import APIRouter
+from fastapi.routing import APIRouter
 
-from .health import health
-from .todos import todos
+from .health import health as health_router
+from .todos import todos as todos_router
 
-__all__ = ["api_v1"]
+__all__ = ["api_v1", "health_router", "todos_router"]
 
 api_v1 = APIRouter()
 
-api_v1.include_router(health, prefix="/health")
-api_v1.include_router(todos, prefix="/todos")
+api_v1.include_router(health_router, prefix="/health")
+api_v1.include_router(todos_router, prefix="/todos")

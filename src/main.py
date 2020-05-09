@@ -1,11 +1,11 @@
 """
 main.py
 """
-from fastapi import FastAPI
+from fastapi.applications import FastAPI
 from .routes import api_v1
 
 
-def create_app():
+def create_app() -> FastAPI:
     """ app factory method """
     app = FastAPI()
     # TODO: configuration
