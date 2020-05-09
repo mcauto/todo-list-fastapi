@@ -6,6 +6,7 @@ from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException
 from .routes import api_v1
 from .errors import http_exception_handler, validation_exception_handler
+from .config import settings
 
 
 def create_app() -> FastAPI:
@@ -21,4 +22,4 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-app.include_router(api_v1, prefix="/api/v1")
+app.include_router(api_v1, prefix=f"{settings.API_VERSION_PREFIX}")

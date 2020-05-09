@@ -3,6 +3,7 @@ routes/todos.py 테스트
 """
 from http import HTTPStatus
 from starlette.testclient import TestClient
+from src.config import settings
 import pytest
 import functools
 
@@ -24,18 +25,22 @@ def test_todos(
 ) -> None:
     """ test health """
     func = {
-        "GET": functools.partial(client.get, url=f"/api/v1/{uri}"),
+        "GET": functools.partial(
+            client.get, url=f"{settings.API_VERSION_PREFIX}/{uri}"
+        ),
         "POST": functools.partial(
             client.post,
-            url=f"/api/v1/{uri}",
+            url=f"{settings.API_VERSION_PREFIX}/{uri}",
             json={"title": "learning", "content": "fastapi", "is_done": False},
         ),
         "PATCH": functools.partial(
             client.patch,
-            url=f"/api/v1/{uri}",
+            url=f"{settings.API_VERSION_PREFIX}/{uri}",
             json={"title": "study", "content": "python", "is_done": True},
         ),
-        "DELETE": functools.partial(client.delete, url=f"/api/v1/{uri}"),
+        "DELETE": functools.partial(
+            client.delete, url=f"{settings.API_VERSION_PREFIX}/{uri}"
+        ),
     }
     response = func[method]()
     assert response.status_code == expect
