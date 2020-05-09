@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.2.4...v1.3.0) (2020-05-09)
+
+
+### Features
+
+* **handler:** add exception handler ([#24](https://github.com/mcauto/todo-list-fastapi/issues/24)) ([18275aa](https://github.com/mcauto/todo-list-fastapi/commit/18275aaaed460e2a50f7a30a7daceb97df3f662a))
+
 ### [1.2.4](https://github.com/mcauto/todo-list-fastapi/compare/v1.2.3...v1.2.4) (2020-05-09)
 
 ### [1.2.3](https://github.com/mcauto/todo-list-fastapi/compare/v1.2.2...v1.2.3) (2020-05-09)
