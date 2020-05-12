@@ -17,7 +17,7 @@ import pytest
     ],
 )
 def test_set_cors_allows(urls: str) -> None:
-    os.environ["CORS_ALLOWS"] = urls
+    os.environ["TODO_CORS_ALLOWS"] = urls
     try:
         Settings()
     except SettingsError as err:
@@ -27,7 +27,7 @@ def test_set_cors_allows(urls: str) -> None:
 
 
 def test_set_cors_allows_failure() -> None:
-    os.environ["CORS_ALLOWS"] = "2130706433"  # 127.0.0.1
+    os.environ["TODO_CORS_ALLOWS"] = "2130706433"  # 127.0.0.1
     try:
         Settings()
     except ValueError:

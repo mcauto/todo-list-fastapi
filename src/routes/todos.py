@@ -4,10 +4,11 @@ todos.py
 from typing import Optional, List, Dict
 
 from fastapi.routing import APIRouter
-from fastapi.param_functions import Path
+from fastapi.param_functions import Path, Depends
 from fastapi.exceptions import HTTPException
 from fastapi import status
 from pydantic import BaseModel
+from .token import get_current_active_user, User
 
 todos = APIRouter()
 
@@ -47,10 +48,13 @@ def __get_last_seqno() -> int:
 
 
 __valid_seqno = Path(..., ge=1)
+__current_active_user = Depends(get_current_active_user)
 
 
 @todos.get(path="/{seqno}", response_model=TodoItem)
-async def get_todo(seqno: int = __valid_seqno) -> TodoItem:
+async def get_todo(
+    seqno: int = __valid_seqno, current_user: User = __current_active_user
+) -> TodoItem:
     """ get todo item """
     return __get_todo(seqno=seqno)
 
@@ -63,7 +67,9 @@ def __get_todo(seqno: int) -> TodoItem:
 
 
 @todos.get("", response_model=List[TodoItem])
-async def get_todos() -> List[TodoItem]:
+async def get_todos(
+    current_user: User = __current_active_user
+) -> List[TodoItem]:
     """ get todos """
     return __get_all()
 
@@ -78,7 +84,9 @@ def __get_all() -> List[TodoItem]:
 
 
 @todos.post("", status_code=status.HTTP_201_CREATED, response_model=TodoItem)
-async def create_todo(todo: TodoCreateRequest) -> TodoItem:
+async def create_todo(
+    todo: TodoCreateRequest, current_user: User = __current_active_user
+) -> TodoItem:
     """ create todo """
     return __create_todo(todo)
 
@@ -94,7 +102,9 @@ def __create_todo(todo: TodoCreateRequest) -> TodoItem:
     path="/{seqno}", status_code=status.HTTP_200_OK, response_model=TodoItem
 )
 async def update_todo(
-    todo_update_request: TodoUpdateRequest, seqno: int = __valid_seqno
+    todo_update_request: TodoUpdateRequest,
+    seqno: int = __valid_seqno,
+    current_user: User = __current_active_user,
 ) -> TodoItem:
     """ update todo """
     todo = __get_todo(seqno=seqno)
@@ -119,7 +129,9 @@ def __update_todo(
 
 
 @todos.delete(path="/{seqno}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_todo(seqno: int = __valid_seqno) -> None:
+async def delete_todo(
+    seqno: int = __valid_seqno, current_user: User = __current_active_user
+) -> None:
     """ delete todo """
     todo = __get_todo(seqno)
     __fake_todos.pop(todo.seqno)

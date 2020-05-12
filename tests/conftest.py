@@ -3,6 +3,7 @@ conftest.py
 
 fixture
 """
+from typing import Dict
 
 import pytest
 from starlette.testclient import TestClient
@@ -25,3 +26,9 @@ def app() -> FastAPI:
 def client(app: FastAPI) -> TestClient:
     """ test client """
     return TestClient(app)
+
+
+@pytest.fixture
+def authorization_headers(client: TestClient) -> Dict[str, str]:
+    """ generate token for test """
+    return {"Authorization": f"Bearer mcauto"}

@@ -9,18 +9,30 @@
         "**/.benchmarks": true,
         "**/.venv": true,
         "**/node_modules": true,
-        "**/__pycache__": true,
-        "**/.pytest_cache": true
+        "**/public": true
     },
+    "editor.detectIndentation": false,
     "editor.formatOnSave": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.mypyEnabled": true,
-    "python.linting.enabled": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "python.pythonPath": ".venv/bin/python",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.pytestEnabled": true,
     "python.formatting.provider": "black",
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pycodestyleArgs": [
+        "--max-line-length=80"
+    ],
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--errors-only", // mypy, pycodestyle
+        "--disable=no-member", // mypy
+        "--enable=unused-import" // 이것 때문에 씀..
+    ],
     "python.formatting.blackArgs": [
         "--line-length=80"
-    ],
-    "pythonTestExplorer.testFramework": "pytest",
-    "python.testing.pytestEnabled": true,
-    "editor.fontFamily": "D2Coding"
+    ]
 }

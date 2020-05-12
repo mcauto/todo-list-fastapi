@@ -21,8 +21,11 @@ pylint = "*"
 black = "==19.3b0"
 
 [packages]
+# web framework
 fastapi = "*"
+# asgi
 uvicorn = "*"
+python-multipart = "*"
 
 [requires]
 python_version = "3.8"

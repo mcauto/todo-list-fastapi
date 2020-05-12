@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     """
 
     API_VERSION_PREFIX: str = "/api/v1"
+    SECRET_KEY: str = "have to change secret key"
+    JWT_ALGORITHM: str = "HS256"
+
+    ACCESS_TOKEN_EXPIRE_SECONDS: int = 86400 * 7
+
     CORS_ALLOWS: List[HttpUrl] = []
 
     @validator("CORS_ALLOWS", pre=True)
@@ -28,6 +33,7 @@ class Settings(BaseSettings):
     class Config:
         """ setting의 부가 설정 """
 
+        env_prefix = "TODO_"
         case_sensitive = True
 
 
