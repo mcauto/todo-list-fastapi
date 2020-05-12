@@ -14,7 +14,10 @@
                 "5000"
             ],
             "console": "integratedTerminal",
-            "subProcess": true
+            "subProcess": true,
+            "env": {
+                "CORS_ALLOWS": "'[\"http://127.0.0.1\"]'",
+            }
         }
     ]
 }
