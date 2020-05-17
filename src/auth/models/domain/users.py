@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
+from ....constants import UserPermission
 
 
 class User(BaseModel):
@@ -15,3 +16,4 @@ class UserInDB(User):
     """ User 중요 정보 """
 
     hashed_password: str
+    permission: UserPermission = UserPermission.NORMAL

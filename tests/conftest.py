@@ -12,6 +12,7 @@ from fastapi.applications import FastAPI
 from src.main import create_app
 from src.routes import api_v1, token_router
 from src.config import settings
+from src.auth.services import create_access_token
 
 
 @pytest.fixture
@@ -31,7 +32,10 @@ def client(app: FastAPI) -> TestClient:
 
 @pytest.fixture
 def access_token() -> str:
-    return "mcauto"
+    return create_access_token(
+        username="mcauto",
+        scopes=["TODO/POST", "TODO/GET", "TODO/PATCH", "TODO/DELETE"],
+    )
 
 
 @pytest.fixture

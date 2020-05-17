@@ -26,6 +26,7 @@ fastapi = "*"
 # asgi
 uvicorn = "*"
 python-multipart = "*"
+pyjwt = "*"
 
 [requires]
 python_version = "3.8"
