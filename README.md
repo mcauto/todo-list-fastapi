@@ -70,6 +70,24 @@ INFO:     Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
 
 콘솔 확인
 
+
+#### Docker
+
+https://hub.docker.com/repository/docker/mcauto/todo-list-fastapi
+
+```bash
+$ docker pull mcauto/todo-list-fastapi:latest
+
+$ docker run --rm -d --name todo-list-fastapi -p 5000:5000 todo-list-fastapi
+c690c36b61dfca71253d3586ab285e3001826e6c0e2c3467f59cbfed0430b37a
+
+$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+c690c36b61df        todo-list-fastapi   "python -m uvicorn s…"   2 seconds ago       Up 1 second         0.0.0.0:5000->5000/tcp   todo-list-fastapi
+```
+
+#### 실행 화면
+
 ![running2](docs/running2.png)
 
 swagger: http://localhost:5000/docs
@@ -79,6 +97,7 @@ swagger: http://localhost:5000/docs
 redoc: http://localhost:5000/redoc
 
 ![redoc](docs/redoc.png)
+
 
 ### Code quality
 

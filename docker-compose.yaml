@@ -15,22 +15,11 @@ services:
       dockerfile: app.Dockerfile
     hostname: ${APP_NAME}
     container_name: ${APP_NAME}
-    # command:
-    env_file: ${PWD}/compose.env
+    env_file: ${PWD}/.env
     tty: true
     depends_on:
-      - "${APP_NAME}-base"
+      - "base"
     ports:
       - ${PORT}:${PORT}
     environment:
       - HOST=${HOST}
-    volumes:
-      - type: bind
-        source: ${PWD}/src
-        target: /code/src
-      - type: bind
-        source: ${PWD}/confs
-        target: /code/confs
-      - type: bind
-        source: ${PWD}/run
-        target: /code/run

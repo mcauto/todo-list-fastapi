@@ -83,11 +83,11 @@ test: ref venv-dev
 	--disable-warnings
 .PHONY: test-coverage
 
-build-docker: ref venv-dev requirements
+docker: requirements
 	@/bin/sh -c "echo \"${GREEN}[docker image 빌드를 시작합니다]${NC}\""
 	@docker build --rm -f "base.Dockerfile" -t ${APP_NAME}-base:latest "."
 	@set -ex && docker build --build-arg APP_NAME=${APP_NAME}-base:latest --rm -f "app.Dockerfile" -t ${APP_NAME}:latest "."
-.PHONY: build-docker
+.PHONY: docker
 
 requirements: ref venv-dev
 	@/bin/sh -c "echo \"${GREEN}[requirements.txt를 추출합니다]${NC}\""
