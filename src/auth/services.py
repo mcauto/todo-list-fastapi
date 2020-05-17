@@ -4,7 +4,6 @@ from fastapi.param_functions import Depends
 
 from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 import jwt
-from jwt import PyJWTError
 
 from .models.domain.users import UserInDB, User
 from .models.domain.tokens import TokenData
@@ -85,7 +84,7 @@ async def decode_token(token: str) -> Optional[TokenData]:
         username = payload.get("username", None)
         token_scopes = payload.get("scopes", [])
         token_data = TokenData(scopes=token_scopes, username=username)
-    except PyJWTError as err:
+    except jwt.PyJWTError as err:
         # TODO: logging
         token_data = None
     finally:

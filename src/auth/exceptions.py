@@ -8,7 +8,7 @@ from fastapi.exceptions import HTTPException
 
 class CredendtialException(HTTPException):
     def __init__(self, headers: Dict[str, str] = None) -> None:
-        super().__init__(
+        super(CredendtialException, self).__init__(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
             headers=headers,
