@@ -16,7 +16,7 @@
             "console": "integratedTerminal",
             "subProcess": true,
             "env": {
-                "TODO_CORS_ALLOWS": "'[\"http://127.0.0.1\"]'",
+                "CORS_ALLOWS": "'[\"http://127.0.0.1\"]'",
             }
         }
     ]
