@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.4.0...v1.5.0) (2020-05-17)
+
+
+### Features
+
+* **security:** add oauth ([#26](https://github.com/mcauto/todo-list-fastapi/issues/26)) ([114e695](https://github.com/mcauto/todo-list-fastapi/commit/114e695c90c91abc7eb9db9d7c1b3d6612a64d5d))
+
 ## [1.4.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.3.0...v1.4.0) (2020-05-12)
 
 
