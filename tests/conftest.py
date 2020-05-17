@@ -10,7 +10,7 @@ from starlette.testclient import TestClient
 from fastapi.applications import FastAPI
 
 from src.main import create_app
-from src.routes import api_v1
+from src.routes import api_v1, token_router
 from src.config import settings
 
 
@@ -19,6 +19,7 @@ def app() -> FastAPI:
     """ test app """
     app = create_app()
     app.include_router(api_v1, prefix=f"{settings.API_VERSION_PREFIX}")
+    app.include_router(token_router, prefix="/api/token")
     return app
 
 
@@ -29,6 +30,13 @@ def client(app: FastAPI) -> TestClient:
 
 
 @pytest.fixture
-def authorization_headers(client: TestClient) -> Dict[str, str]:
+def access_token() -> str:
+    return "mcauto"
+
+
+@pytest.fixture
+def authorization_headers(
+    client: TestClient, access_token: str
+) -> Dict[str, str]:
     """ generate token for test """
-    return {"Authorization": f"Bearer mcauto"}
+    return {"Authorization": f"Bearer {access_token}"}

@@ -39,7 +39,14 @@ __fake_users_db = {
         "email": "nexters@kakao.com",
         "hashed_password": "fakehashedsecret",
         "disabled": False,
-    }
+    },
+    "guest": {
+        "username": "guest",
+        "full_name": "Player Unknown",
+        "email": "guest@guest.guest",
+        "hashed_password": "fakehashedsecret",
+        "disabled": True,
+    },
 }
 
 
@@ -82,7 +89,7 @@ async def get_current_active_user(
 
 async def __decode_token(token: str) -> Optional[TokenData]:
     # TODO: JWT & security scope
-    return TokenData(username=token)
+    return TokenData(username=token) if token else None
 
 
 async def __get_user(db: Any, username: str) -> Optional[UserInDB]:
