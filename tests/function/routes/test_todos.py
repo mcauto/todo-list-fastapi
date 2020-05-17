@@ -12,12 +12,15 @@ import functools
 @pytest.mark.parametrize(
     "method, uri, expect",
     [
+        ["GET", "todos", HTTPStatus.NOT_FOUND],
         ["POST", "todos", HTTPStatus.CREATED],
         ["GET", "todos/1", HTTPStatus.OK],
         ["GET", "todos", HTTPStatus.OK],
         ["GET", "todos/7279", HTTPStatus.NOT_FOUND],
         ["PATCH", "todos/1", HTTPStatus.OK],
+        ["PATCH", "todos/2", HTTPStatus.NOT_FOUND],
         ["DELETE", "todos/1", HTTPStatus.NO_CONTENT],
+        ["DELETE", "todos/2", HTTPStatus.NOT_FOUND],
         ["GET", "todos", HTTPStatus.NOT_FOUND],
     ],
 )

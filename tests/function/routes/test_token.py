@@ -7,7 +7,8 @@ from starlette.testclient import TestClient
 from starlette import status
 from starlette.exceptions import HTTPException
 
-from src.routes.token import get_current_user, get_current_active_user, User
+from src.auth.services import get_current_user, get_current_active_user
+from src.auth.models.domain.users import User
 
 
 @pytest.mark.parametrize(
