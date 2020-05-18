@@ -1,6 +1,7 @@
-from typing import List
-from pydantic import BaseModel
 from enum import Enum
+from typing import List
+
+from pydantic import BaseModel
 
 
 class TokenType(str, Enum):
@@ -14,10 +15,3 @@ class TokenData(BaseModel):
 
     username: str = ""
     scopes: List[str] = []
-
-
-class TokenResponse(BaseModel):
-    """ 토큰 결과 """
-
-    access_token: str
-    token_type: TokenType

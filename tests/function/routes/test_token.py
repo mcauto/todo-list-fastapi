@@ -13,14 +13,16 @@ from src.auth.services import (
     get_current_user,
 )
 from src.auth.models.domain.users import User
+from src.auth.repository import UserJSONFileRepository, UserRepository
+from src.config import settings
 
 
 @pytest.mark.parametrize(
     "username, password, expect",
     [
-        ["mcauto", "secret", status.HTTP_200_OK],
+        ["mcauto", "imdeo", status.HTTP_201_CREATED],
         ["mcauto", "wrong_secret", status.HTTP_400_BAD_REQUEST],
-        ["unknown", "secret", status.HTTP_400_BAD_REQUEST],
+        ["unknown", "imdeo", status.HTTP_400_BAD_REQUEST],
     ],
 )
 def test_sign_in(
@@ -36,26 +38,44 @@ def test_sign_in(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "token, scopes",
-    [[create_access_token(username="mcauto", scopes=[]), SecurityScopes()]],
+    "token, scopes, repository",
+    [
+        [
+            create_access_token(username="mcauto", scopes=[]),
+            SecurityScopes(),
+            UserJSONFileRepository(settings.USER_REPOSITORY_PATH),
+        ]
+    ],
 )
-async def test_get_current_user(scopes: SecurityScopes, token: str) -> None:
+async def test_get_current_user(
+    scopes: SecurityScopes, token: str, repository: UserRepository
+) -> None:
     try:
-        await get_current_user(security_scopes=scopes, token=token)
+        await get_current_user(
+            security_scopes=scopes, token=token, repository=repository
+        )
     except HTTPException:
         assert False
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "token, scopes",
-    [[create_access_token(username="unknown", scopes=[]), SecurityScopes()]],
+    "token, scopes, repository",
+    [
+        [
+            create_access_token(username="unknown", scopes=[]),
+            SecurityScopes(),
+            UserJSONFileRepository(settings.USER_REPOSITORY_PATH),
+        ]
+    ],
 )
 async def test_get_current_user_not_exist(
-    scopes: SecurityScopes, token: str
+    scopes: SecurityScopes, token: str, repository: UserRepository
 ) -> None:
     try:
-        await get_current_user(security_scopes=scopes, token=token)
+        await get_current_user(
+            security_scopes=scopes, token=token, repository=repository
+        )
     except HTTPException:
         pass
     else:
@@ -63,12 +83,23 @@ async def test_get_current_user_not_exist(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("token, scopes", [["", SecurityScopes()]])
+@pytest.mark.parametrize(
+    "token, scopes, repository",
+    [
+        [
+            "",
+            SecurityScopes(),
+            UserJSONFileRepository(settings.USER_REPOSITORY_PATH),
+        ]
+    ],
+)
 async def test_get_current_user_decode_fail(
-    scopes: SecurityScopes, token: str
+    scopes: SecurityScopes, token: str, repository: UserRepository
 ) -> None:
     try:
-        await get_current_user(security_scopes=scopes, token=token)
+        await get_current_user(
+            security_scopes=scopes, token=token, repository=repository
+        )
     except HTTPException:
         pass
     else:

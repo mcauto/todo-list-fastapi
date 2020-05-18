@@ -1,6 +1,8 @@
 from typing import Optional
+
 from pydantic import BaseModel
-from ....constants import UserPermission
+
+from ...constants import UserPermission
 
 
 class User(BaseModel):

@@ -1,17 +1,21 @@
-from typing import Any, Optional, Iterable, List
 import time
-from fastapi.param_functions import Depends
+from typing import Iterable, List, Optional
 
-from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 import jwt
+from fastapi.param_functions import Depends, Security
+from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 
-from .models.domain.users import UserInDB, User
-from .models.domain.tokens import TokenData
-from .exceptions import CredendtialException, InactiveUserException
-from .repository.fake import users
 from ..config import settings
-from ..constants import UserPermission
-
+from .constants import UserPermission
+from .exceptions import (
+    CredendtialException,
+    ForbiddenException,
+    InactiveUserException,
+)
+from .models.domain.tokens import TokenData
+from .models.domain.users import User, UserInDB
+from .repository import get_users_repository
+from .repository.base import UserRepository
 
 __support_scopes = {
     "TODO/POST": "create todo",
@@ -26,7 +30,11 @@ oauth2_scheme = OAuth2PasswordBearer(
 
 
 async def get_current_user(
-    security_scopes: SecurityScopes, token: str = Depends(oauth2_scheme)
+    security_scopes: SecurityScopes,
+    token: str = Depends(oauth2_scheme),
+    repository: UserRepository = Depends(
+        get_users_repository(settings.USER_REPOSITORY_PATH)
+    ),
 ) -> Optional[User]:
     """ 현재 요청한 유저 확인 """
     credential_exception = __build_credential_exception(
@@ -35,7 +43,7 @@ async def get_current_user(
     token_data = await decode_token(token)
     if not token_data:
         raise credential_exception
-    user = await __get_user(db=users, username=token_data.username)
+    user = await repository.find_by_name(name=token_data.username)
     if not user:
         raise credential_exception
     if user.permission != UserPermission.ADMIN and not is_enough_permissions(
@@ -59,6 +67,12 @@ async def get_current_active_user(
     """ 활성화 유저 불러오기 """
     if current_user.disabled:
         raise InactiveUserException
+    return current_user
+
+
+def get_admin_user(current_user: UserInDB = Security(get_current_user)) -> User:
+    if current_user.permission != UserPermission.ADMIN:
+        raise ForbiddenException
     return current_user
 
 
@@ -101,30 +115,16 @@ def is_enough_permissions(
 
 
 async def authenticate_user(
-    db: Any, username: str, password: str
+    repository: UserRepository, username: str, password: str
 ) -> Optional[UserInDB]:
     """ 유저 인증 """
-    user = await __get_user(db=db, username=username)
-    if not user:
-        return None
-    if not __verify_password(
-        input_password=password, hashed_password=user.hashed_password
-    ):
-        return None
-    return user
+    return await repository.get_signed_user(
+        username=username, password=password
+    )
 
 
-async def __get_user(db: Any, username: str) -> Optional[UserInDB]:
-    user = db.get(username, None)
-    if user:
-        return UserInDB(**user)
-    else:
-        return None
-
-
-def __fake_hash_password(password: str) -> str:
-    return "fakehashed" + password
-
-
-def __verify_password(input_password: str, hashed_password: str) -> bool:
-    return __fake_hash_password(input_password) == hashed_password
+async def get_user(
+    repository: UserRepository, username: str
+) -> Optional[UserInDB]:
+    """ get user """
+    return await repository.find_by_name(name=username)
