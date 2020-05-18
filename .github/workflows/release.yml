@@ -47,6 +47,7 @@ jobs:
           repository: mcauto/todo-list-fastapi-base
           dockerfile: base.Dockerfile
           tag_with_ref: true
+          tag_with_sha: true
       - name: Build and push Docker app images
         uses: docker/build-push-action@v1.1.0
         with:
@@ -56,3 +57,4 @@ jobs:
           dockerfile: app.Dockerfile
           build_args: BASE_IMAGE=mcauto/todo-list-fastapi-base
           tag_with_ref: true
+          tag_with_sha: true
