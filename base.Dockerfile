@@ -8,8 +8,9 @@ RUN set -ex && apk update \
     && apk del tzdata
 
 # build-base: gevent dependency
+# libffi-dev: bcrypt dependency
 RUN set -ex && apk update \
-    && apk add build-base \
+    && apk add build-base libffi-dev \
     && rm -rf /var/cache/apk/*
 
 # centos7에서 pip upgrade 중 EnvironmentError [Errno 39] “Directory not empty” 발생

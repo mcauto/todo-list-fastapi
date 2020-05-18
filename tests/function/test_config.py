@@ -27,7 +27,7 @@ def test_set_cors_allows(urls: str) -> None:
 
 
 def test_set_cors_allows_failure() -> None:
-    os.environ["TODO_CORS_ALLOWS"] = "2130706433"  # 127.0.0.1
+    os.environ["CORS_ALLOWS"] = "2130706433"  # 127.0.0.1
     try:
         Settings()
     except ValueError:

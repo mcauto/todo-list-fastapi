@@ -86,7 +86,7 @@ test: ref venv-dev
 docker: requirements
 	@/bin/sh -c "echo \"${GREEN}[docker image 빌드를 시작합니다]${NC}\""
 	@docker build --rm -f "base.Dockerfile" -t ${APP_NAME}-base:latest "."
-	@set -ex && docker build --build-arg APP_NAME=${APP_NAME}-base:latest --rm -f "app.Dockerfile" -t ${APP_NAME}:latest "."
+	@set -ex && docker build --build-arg BASE_IMAGE=${APP_NAME}-base:latest --rm -f "app.Dockerfile" -t ${APP_NAME}:latest "."
 .PHONY: docker
 
 requirements: ref venv-dev

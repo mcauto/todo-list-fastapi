@@ -78,7 +78,7 @@ https://hub.docker.com/repository/docker/mcauto/todo-list-fastapi
 ```bash
 $ docker pull mcauto/todo-list-fastapi:latest
 
-$ docker run --rm -d --name todo-list-fastapi -p 5000:5000 todo-list-fastapi
+$ docker run --rm -d --name todo-list-fastapi -p 5000:5000 --env USER_REPOSITORY_PATH=/code/data/users.json --env CORS_ALLOWS="[\"http://127.0.0.1\"]" mcauto/todo-list-fastapi:latest
 c690c36b61dfca71253d3586ab285e3001826e6c0e2c3467f59cbfed0430b37a
 
 $ docker ps -a

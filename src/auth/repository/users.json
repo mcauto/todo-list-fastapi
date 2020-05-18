@@ -1,0 +1,12 @@
+{
+    "users": [
+        {
+            "username": "mcauto",
+            "email": "nexters@kakao.com",
+            "full_name": "Mincheol Kim",
+            "disabled": false,
+            "hashed_password": "$2b$12$7Yze/DLeBpgKD23Bq9oA9OjO2pYrTFdv9PImy9spSsrefla7nlMAG",
+            "permission": 1
+        }
+    ]
+}

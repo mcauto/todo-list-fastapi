@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
 
     ACCESS_TOKEN_EXPIRE_SECONDS: int = 86400 * 7
+    USER_REPOSITORY_PATH: str = ""
 
     CORS_ALLOWS: List[HttpUrl] = []
 
@@ -33,7 +34,6 @@ class Settings(BaseSettings):
     class Config:
         """ setting의 부가 설정 """
 
-        env_prefix = "TODO_"
         case_sensitive = True
 
 
