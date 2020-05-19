@@ -5,7 +5,7 @@ import jwt
 from fastapi.param_functions import Depends, Security
 from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 
-from ..config import settings
+from ...core.config import settings
 from .constants import UserPermission
 from .exceptions import (
     CredendtialException,
@@ -14,8 +14,9 @@ from .exceptions import (
 )
 from .models.domain.tokens import TokenData
 from .models.domain.users import User, UserInDB
-from .repository import get_users_repository
 from .repository.base import UserRepository
+from .repository.mysql import UserMysqlRepository
+from .di.database import get_user_repository
 
 __support_scopes = {
     "TODO/POST": "create todo",
@@ -33,7 +34,7 @@ async def get_current_user(
     security_scopes: SecurityScopes,
     token: str = Depends(oauth2_scheme),
     repository: UserRepository = Depends(
-        get_users_repository(settings.USER_REPOSITORY_PATH)
+        get_user_repository(UserMysqlRepository)
     ),
 ) -> Optional[User]:
     """ 현재 요청한 유저 확인 """

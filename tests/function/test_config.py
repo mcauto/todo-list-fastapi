@@ -2,7 +2,7 @@
 config 테스트
 """
 import os
-from src.config import Settings
+from src.core.config import Settings
 from pydantic.env_settings import SettingsError
 import pytest
 

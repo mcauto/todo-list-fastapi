@@ -7,7 +7,7 @@
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "src.main:app",
+                "src.asgi:app",
                 "--host",
                 "0.0.0.0",
                 "--port",
@@ -17,7 +17,12 @@
             "subProcess": true,
             "env": {
                 "CORS_ALLOWS": "'[\"http://127.0.0.1\"]'",
-                "USER_REPOSITORY_PATH": "${workspaceFolder}/src/auth/repository/users.json",
+                "USER_REPOSITORY_PATH": "${workspaceFolder}/src/apps/auth/repository/users.json",
+                "SQLALCHEMY_DATABASE_URL": "mysql+pymysql://root:imdeo@database/todolist",
+                "SQLALCHEMY_POOL_SIZE": "5",
+                "SQLALCHEMY_POOL_TIMEOUT": "10",
+                "SQLALCHEMY_POOL_RECYCLE": "3600",
+                "SQLALCHEMY_ECHO": "False",
             }
         }
     ]

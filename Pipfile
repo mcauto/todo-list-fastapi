@@ -33,6 +33,9 @@ aiofiles = "*"
 # encrypt
 passlib = "*"
 bcrypt = "*"
+# database orm
+sqlalchemy = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.8"
