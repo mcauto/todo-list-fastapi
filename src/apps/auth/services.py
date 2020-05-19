@@ -5,7 +5,7 @@ import jwt
 from fastapi.param_functions import Depends, Security
 from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 
-from ...config import settings
+from ...core.config import settings
 from .constants import UserPermission
 from .exceptions import (
     CredendtialException,

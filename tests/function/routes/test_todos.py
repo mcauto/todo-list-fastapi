@@ -4,7 +4,7 @@ routes/todos.py 테스트
 from typing import Dict
 from http import HTTPStatus
 from starlette.testclient import TestClient
-from src.config import settings
+from src.core.config import settings
 import pytest
 import functools
 

@@ -4,7 +4,7 @@ core/errors.py 테스트
 from typing import Dict
 from starlette.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from starlette.testclient import TestClient
-from src.config import settings
+from src.core.config import settings
 
 
 def test_http_exception_handler(

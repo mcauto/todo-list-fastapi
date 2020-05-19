@@ -3,7 +3,7 @@ routes/health.py 테스트
 """
 from http import HTTPStatus
 from starlette.testclient import TestClient
-from src.config import settings
+from src.core.config import settings
 
 
 def test_health(client: TestClient) -> None:

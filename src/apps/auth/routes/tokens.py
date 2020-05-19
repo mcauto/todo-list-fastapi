@@ -5,7 +5,7 @@ from fastapi.routing import APIRouter
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from starlette import status
 
-from ....config import settings
+from ....core.config import settings
 from ..exceptions import FailureSignInException
 from ..models.domain.tokens import TokenType
 from ..models.schemas.tokens import TokenResponse

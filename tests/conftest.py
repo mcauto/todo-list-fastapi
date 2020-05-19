@@ -11,7 +11,7 @@ from fastapi.applications import FastAPI
 
 from src.main import create_app
 from src.routes import api_v1, token_router
-from src.config import settings
+from src.core.config import settings
 from src.apps.auth.services import create_access_token
 
 

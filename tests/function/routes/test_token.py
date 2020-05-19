@@ -14,7 +14,7 @@ from src.apps.auth.services import (
 )
 from src.apps.auth.models.domain.users import User
 from src.apps.auth.repository import UserJSONFileRepository, UserRepository
-from src.config import settings
+from src.core.config import settings
 
 
 @pytest.mark.parametrize(
