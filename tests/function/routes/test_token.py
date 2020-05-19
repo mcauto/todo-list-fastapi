@@ -1,6 +1,7 @@
 """
 routes/token.py 테스트
 """
+from typing import Generator
 import pytest
 
 from starlette.testclient import TestClient
@@ -14,6 +15,7 @@ from src.apps.auth.services import (
 )
 from src.apps.auth.models.domain.users import User
 from src.apps.auth.repository import UserJSONFileRepository, UserRepository
+from src.core.exceptions import RepositoryException
 from src.core.config import settings
 
 
@@ -22,18 +24,22 @@ from src.core.config import settings
     [
         ["mcauto", "imdeo", status.HTTP_201_CREATED],
         ["mcauto", "wrong_secret", status.HTTP_400_BAD_REQUEST],
-        ["unknown", "imdeo", status.HTTP_400_BAD_REQUEST],
     ],
 )
 def test_sign_in(
-    client: TestClient, username: str, password: str, expect: int
+    client: TestClient,
+    username: str,
+    password: str,
+    expect: int,
+    mocked_get_signed_user: Generator,  # type: ignore
 ) -> None:
-    response = client.post(
-        url="/api/token",
-        headers={"Content-Type": "application/x-www-form-urlencoded"},
-        data={"username": username, "password": password},
-    )
-    assert response.status_code == expect
+    with mocked_get_signed_user:  # type: ignore
+        response = client.post(
+            url="/api/token",
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            data={"username": username, "password": password},
+        )
+        assert response.status_code == expect
 
 
 @pytest.mark.asyncio
@@ -76,7 +82,7 @@ async def test_get_current_user_not_exist(
         await get_current_user(
             security_scopes=scopes, token=token, repository=repository
         )
-    except HTTPException:
+    except (HTTPException, RepositoryException):
         pass
     else:
         assert False
@@ -100,7 +106,7 @@ async def test_get_current_user_decode_fail(
         await get_current_user(
             security_scopes=scopes, token=token, repository=repository
         )
-    except HTTPException:
+    except (HTTPException, RepositoryException):
         pass
     else:
         assert False
@@ -113,7 +119,7 @@ async def test_get_current_user_decode_fail(
 async def test_get_current_active_user(current_user: User) -> None:
     try:
         await get_current_active_user(current_user)
-    except HTTPException:
+    except (HTTPException, RepositoryException):
         pass
     else:
         assert False

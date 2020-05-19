@@ -21,6 +21,13 @@ class Settings(BaseSettings):
 
     CORS_ALLOWS: List[HttpUrl] = []
 
+    # sqlalchemy configuration (기본 단위 seconds)
+    SQLALCHEMY_DATABASE_URL: str = ""
+    SQLALCHEMY_POOL_SIZE: int = 5
+    SQLALCHEMY_POOL_TIMEOUT: int = 10
+    SQLALCHEMY_POOL_RECYCLE: int = 3600
+    SQLALCHEMY_ECHO: bool = False
+
     @validator("CORS_ALLOWS", pre=True)
     def __set_cors_allows(cls, v: Union[str, List[str]]) -> List[str]:  # noqa
         if isinstance(v, str) and not v.startswith("["):

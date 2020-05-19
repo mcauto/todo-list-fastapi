@@ -1,7 +1,7 @@
 """
 routes/todos.py 테스트
 """
-from typing import Dict
+from typing import Dict, Generator
 from http import HTTPStatus
 from starlette.testclient import TestClient
 from src.core.config import settings
@@ -30,6 +30,7 @@ def test_todos(
     method: str,
     uri: str,
     expect: HTTPStatus,
+    mocked_get_signed_user: Generator,  # type: ignore
 ) -> None:
     """ test health """
     func = {
@@ -56,5 +57,6 @@ def test_todos(
             headers=authorization_headers,
         ),
     }
-    response = func[method]()
-    assert response.status_code == expect
+    with mocked_get_signed_user:  # type: ignore
+        response = func[method]()
+        assert response.status_code == expect

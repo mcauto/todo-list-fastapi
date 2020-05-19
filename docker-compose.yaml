@@ -8,6 +8,24 @@ services:
       dockerfile: base.Dockerfile
     container_name: base
     command: python3 -V
+  database:
+    image: mysql:8.0
+    hostname: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    env_file:
+      - ./infra/mysql.env
+    volumes:
+      - type: bind
+        source: ./infra/mysql
+        target: /var/lib/mysql
+      - type: bind
+        source: ./infra/mysql-files
+        target: /var/lib/mysql-files
+      - type: bind
+        source: ./infra/my.cnf
+        target: /etc/mysql/my.cnf
   app:
     image: ${APP_NAME}:latest
     build:
@@ -17,8 +35,10 @@ services:
     container_name: ${APP_NAME}
     env_file: ${PWD}/.env
     tty: true
+    restart: always
     depends_on:
       - "base"
+      - "database"
     ports:
       - ${PORT}:${PORT}
     environment:

@@ -5,36 +5,22 @@ import json
 from typing import Dict, List, Optional
 
 import aiofiles
-from passlib.context import CryptContext
 
+from ....core.config import settings
 from ..models.domain.users import UserInDB
 from ..models.schemas.users import UserCreateRequest
 from ..repository.base import UserRepository
-from ..repository.exceptions import UserAlreadyExistException
-
-__pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-
-def verify_password(input_password: str, hashed_password: str) -> bool:
-    try:
-        verify: bool = __pwd_context.verify(input_password, hashed_password)
-    except (ValueError, RuntimeError) as err:
-        print(err)
-        verify = False
-    finally:
-        return verify
-
-
-def get_password_hash(password: str) -> str:
-    """ password hash """
-    hashed_password = __pwd_context.hash(password)
-    return str(hashed_password)
+from ..repository.exceptions import (
+    UserAlreadyExistException,
+    UserNotFoundException,
+)
+from .base import get_password_hash, verify_password
 
 
 class UserJSONFileRepository(UserRepository):
     """ 파일을 이용한 저장소 """
 
-    def __init__(self, path: str):
+    def __init__(self, path: str = settings.USER_REPOSITORY_PATH):
         self.path: str = path
         self.__users: Dict[str, UserInDB] = {}
 
@@ -58,10 +44,13 @@ class UserJSONFileRepository(UserRepository):
             return None
         return user
 
-    async def find_by_name(self, name: str) -> Optional[UserInDB]:
+    async def find_by_name(self, name: str) -> UserInDB:
         """ name으로 user 찾기 """
         await self.__load_users()
-        return self.__users.get(name, None)
+        user = self.__users.get(name, None)
+        if not user:
+            raise UserNotFoundException(f"{name}에 해당하는 유저를 찾지 못했습니다")
+        return user
 
     async def insert(self, user_create_request: UserCreateRequest) -> UserInDB:
         """ 신규 유저 등록하기 """

@@ -17,3 +17,7 @@ cov.xml
 
 # coverage page
 public
+
+# infra volumes
+infra/mysql
+infra/mysql-files

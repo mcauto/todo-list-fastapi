@@ -19,3 +19,6 @@ class UserInDB(User):
 
     hashed_password: str
     permission: UserPermission = UserPermission.NORMAL
+
+    class Config:
+        orm_mode = True
