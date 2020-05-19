@@ -1,4 +1,4 @@
-from ...exceptions import RepositoryException
+from ....exceptions import RepositoryException
 
 
 class UserAlreadyExistException(RepositoryException):

@@ -5,7 +5,7 @@ from fastapi import status
 from fastapi.param_functions import Depends, Security
 from fastapi.routing import APIRouter
 
-from ...config import settings
+from ....config import settings
 from ..models.domain.users import User
 from ..models.schemas.users import UserCreateRequest
 from ..repository import UserRepository, get_users_repository

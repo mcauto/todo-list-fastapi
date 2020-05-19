@@ -12,7 +12,7 @@ from fastapi.applications import FastAPI
 from src.main import create_app
 from src.routes import api_v1, token_router
 from src.config import settings
-from src.auth.services import create_access_token
+from src.apps.auth.services import create_access_token
 
 
 @pytest.fixture

@@ -7,13 +7,13 @@ from starlette.testclient import TestClient
 from starlette import status
 from fastapi.security.oauth2 import SecurityScopes
 from starlette.exceptions import HTTPException
-from src.auth.services import (
+from src.apps.auth.services import (
     get_current_active_user,
     create_access_token,
     get_current_user,
 )
-from src.auth.models.domain.users import User
-from src.auth.repository import UserJSONFileRepository, UserRepository
+from src.apps.auth.models.domain.users import User
+from src.apps.auth.repository import UserJSONFileRepository, UserRepository
 from src.config import settings
 
 

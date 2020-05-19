@@ -9,6 +9,6 @@ ENV USER_REPOSITORY_PATH=${USER_REPOSITORY_PATH}
 
 RUN mkdir run data
 
-COPY src/auth/repository/users.json ${USER_REPOSITORY_PATH}
+COPY src/apps/auth/repository/users.json ${USER_REPOSITORY_PATH}
 
 CMD ["python", "-m", "uvicorn", "src.main:app","--host","0.0.0.0","--port","5000"]

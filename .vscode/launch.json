@@ -17,7 +17,7 @@
             "subProcess": true,
             "env": {
                 "CORS_ALLOWS": "'[\"http://127.0.0.1\"]'",
-                "USER_REPOSITORY_PATH": "${workspaceFolder}/src/auth/repository/users.json",
+                "USER_REPOSITORY_PATH": "${workspaceFolder}/src/apps/auth/repository/users.json",
             }
         }
     ]
