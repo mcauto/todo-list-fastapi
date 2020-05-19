@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.5.3...v1.6.0) (2020-05-19)
+
+
+### Features
+
+* **sqlalchemy:** add entity (users) ([#34](https://github.com/mcauto/todo-list-fastapi/issues/34)) ([8526407](https://github.com/mcauto/todo-list-fastapi/commit/852640795adc1d852251645b5217a97825307313))
+
 ### [1.5.3](https://github.com/mcauto/todo-list-fastapi/compare/v1.5.2...v1.5.3) (2020-05-18)
 
 ### [1.5.2](https://github.com/mcauto/todo-list-fastapi/compare/v1.5.1...v1.5.2) (2020-05-18)
