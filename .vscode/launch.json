@@ -7,7 +7,7 @@
             "request": "launch",
             "module": "uvicorn",
             "args": [
-                "src.main:app",
+                "src.asgi:app",
                 "--host",
                 "0.0.0.0",
                 "--port",
