@@ -31,7 +31,7 @@ endif
 	@/bin/sh -c "echo \"${GREEN}pip 설치되어 있음${NC}\""
 
 ifndef PIPENV
-	$(error "pipenv가 설치되어 있지 않습니다.")
+	pip install pipenv
 endif
 	@/bin/sh -c "echo \"${GREEN}pipenv 설치되어 있음${NC}\""
 
