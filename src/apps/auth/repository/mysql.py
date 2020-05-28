@@ -7,8 +7,8 @@ from ....core.database import SessionLocal
 from ..models.domain.users import UserInDB
 from ..models.entity.users import User
 from ..models.schemas.users import UserCreateRequest
-from .base import UserRepository, get_password_hash, verify_password
-from .exceptions import UserAlreadyExistException, UserNotFoundException
+from ..repository.base import UserRepository, get_password_hash, verify_password
+from ..repository.exceptions import UserNotFoundException
 
 
 class UserMysqlRepository(UserRepository):
@@ -43,10 +43,6 @@ class UserMysqlRepository(UserRepository):
         return user
 
     async def insert(self, user_create_request: UserCreateRequest) -> UserInDB:
-        user = self._find_by_name(user_create_request.username)
-        if user:
-            raise UserAlreadyExistException(f"이미 존재하는 유저입니다")
-
         hashed_password = get_password_hash(user_create_request.plain_password)
 
         user_orm = User(

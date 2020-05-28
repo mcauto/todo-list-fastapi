@@ -14,7 +14,7 @@ from src.apps.auth.services import (
     get_current_user,
 )
 from src.apps.auth.models.domain.users import User
-from src.apps.auth.repository import UserJSONFileRepository, UserRepository
+from src.apps.auth.repository import UserRepository, UserJSONFileRepository
 from src.core.exceptions import RepositoryException
 from src.core.config import settings
 

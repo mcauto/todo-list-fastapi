@@ -9,9 +9,9 @@ class User(BaseModel):
     """ API를 사용하기 위한 유저 """
 
     username: str
-    email: Optional[str] = None
-    full_name: Optional[str] = None
-    disabled: Optional[bool] = None
+    email: Optional[str] = ""
+    full_name: Optional[str] = ""
+    disabled: Optional[bool] = False
 
 
 class UserInDB(User):
