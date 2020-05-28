@@ -7,6 +7,7 @@ from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 
 from ...core.config import settings
 from .constants import UserPermission
+from .di.database import get_user_repository
 from .exceptions import (
     CredendtialException,
     ForbiddenException,
@@ -16,13 +17,16 @@ from .models.domain.tokens import TokenData
 from .models.domain.users import User, UserInDB
 from .repository.base import UserRepository
 from .repository.mysql import UserMysqlRepository
-from .di.database import get_user_repository
 
 __support_scopes = {
-    "TODO/POST": "create todo",
-    "TODO/GET": "retrieve todo",
-    "TODO/PATCH": "modify todo",
-    "TODO/DELETE": "delete todo",
+    "SERVERS/POST": "register server",
+    "SERVERS/GET": "read server",
+    "SERVERS/PATCH": "update server",
+    "SERVERS/DELETE": "unregister server",
+    "TARGETS/POST": "register scan target",
+    "TARGETS/GET": "read scan target",
+    "TARGETS/PATCH": "update scan target",
+    "TARGETS/DELETE": "unregister scan target",
 }
 
 oauth2_scheme = OAuth2PasswordBearer(

@@ -10,18 +10,15 @@
         "**/.venv": true,
         "**/node_modules": true,
         "**/public": true,
-        "**/__pycache__": true,
         "**/.pytest_cache": true,
-        "**/.coverage": true
+        "**/__pycache__": true
     },
     "editor.detectIndentation": false,
-    "editor.formatOnSave": true,
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "python.pythonPath": ".venv/bin/python",
+    "editor.formatOnSave": true,
     "python.envFile": "${workspaceFolder}/.env",
     "python.testing.pytestEnabled": true,
-    "python.formatting.provider": "black",
     "python.linting.enabled": true,
     "python.linting.lintOnSave": true,
     "python.linting.mypyEnabled": true,
@@ -29,18 +26,19 @@
         "--max-line-length=80"
     ],
     "python.linting.pycodestyleEnabled": true,
-    "python.linting.pylintEnabled": true,
+    "python.linting.pylintEnabled": false,
     "python.linting.pylintArgs": [
         "--errors-only", // mypy, pycodestyle
         "--disable=no-member", // mypy
         "--enable=unused-import" // 이것 때문에 씀..
     ],
+    "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
-        "--line-length=80"
+        "-l",
+        "80"
     ],
     "explorer.sortOrder": "modified",
-    "explorer.openEditors.visible": 0,
-    "debug.openExplorerOnEnd": true,
-    "npm.enableRunFromFolder": true,
-    "npm.enableScriptExplorer": true
+    "editor.formatOnSaveTimeout": 3000,
+    "editor.codeActionsOnSaveTimeout": 3000,
+    "editor.fontFamily": "D2Coding"
 }
