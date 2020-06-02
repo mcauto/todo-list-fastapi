@@ -18,6 +18,9 @@ services:
       - ./infra/mysql.env
     volumes:
       - type: bind
+        source: ./infra/init_sql
+        target: /docker-entrypoint-initdb.d
+      - type: bind
         source: ./infra/mysql-files
         target: /var/lib/mysql-files
       - type: bind
