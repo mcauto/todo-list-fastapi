@@ -1,6 +1,6 @@
 {
     "name": "todo-list-fastapi",
-    "version": "1.6.1",
+    "version": "1.7.0",
     "description": "practice project",
     "main": "src/main.py",
     "license": "MIT",
