@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/mcauto/todo-list-fastapi/compare/v1.7.0...v1.7.1) (2020-06-03)
+
+
+### Bug Fixes
+
+* **security:** modify support scopes ([#39](https://github.com/mcauto/todo-list-fastapi/issues/39)) ([7823007](https://github.com/mcauto/todo-list-fastapi/commit/7823007329b4ec54c89c839482b1102718151d44))
+
 ## [1.7.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.6.1...v1.7.0) (2020-06-02)
 
 
