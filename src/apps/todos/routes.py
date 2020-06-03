@@ -15,10 +15,10 @@ todos = APIRouter()
 
 __valid_seqno = Path(..., ge=1)
 __current_active_user = Depends(get_current_active_user)
-__createable_user = Security(get_current_active_user, scopes=["TODO/POST"])
-__readable_user = Security(get_current_active_user, scopes=["TODO/GET"])
-__updateable_user = Security(get_current_active_user, scopes=["TODO/PATCH"])
-__deleteable_user = Security(get_current_active_user, scopes=["TODO/DELETE"])
+__createable_user = Security(get_current_active_user, scopes=["TODOS/POST"])
+__readable_user = Security(get_current_active_user, scopes=["TODOS/GET"])
+__updateable_user = Security(get_current_active_user, scopes=["TODOS/PATCH"])
+__deleteable_user = Security(get_current_active_user, scopes=["TODOS/DELETE"])
 
 
 @todos.get(path="/{seqno}", response_model=TodoItem)

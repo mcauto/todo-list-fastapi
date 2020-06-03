@@ -19,14 +19,10 @@ from .repository.base import UserRepository
 from .repository.mysql import UserMysqlRepository
 
 __support_scopes = {
-    "SERVERS/POST": "register server",
-    "SERVERS/GET": "read server",
-    "SERVERS/PATCH": "update server",
-    "SERVERS/DELETE": "unregister server",
-    "TARGETS/POST": "register scan target",
-    "TARGETS/GET": "read scan target",
-    "TARGETS/PATCH": "update scan target",
-    "TARGETS/DELETE": "unregister scan target",
+    "TODOS/POST": "register todos",
+    "TODOS/GET": "read todos",
+    "TODOS/PATCH": "update todos",
+    "TODOS/DELETE": "unregister todos",
 }
 
 oauth2_scheme = OAuth2PasswordBearer(
