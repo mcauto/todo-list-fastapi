@@ -86,7 +86,7 @@ def create_access_token(
     iat = int(time.time())
     exp = iat + expiration
     jwt_body = {"username": username, "iat": iat, "exp": exp, "scopes": scopes}
-    token = jwt.encode(jwt_body, settings.SECRET_KEY, settings.JWT_ALGORITHM)
+    token = jwt.encode(jwt_body, settings.PRIVATE_KEY, settings.JWT_ALGORITHM)
     return str(token, "utf-8")
 
 
@@ -94,14 +94,13 @@ async def decode_token(token: str) -> Optional[TokenData]:
     token_data: Optional[TokenData] = None
     try:
         payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=settings.JWT_ALGORITHM
+            token, settings.PUBLIC_KEY, algorithms=settings.JWT_ALGORITHM
         )
         username = payload.get("username", None)
         token_scopes = payload.get("scopes", [])
         token_data = TokenData(scopes=token_scopes, username=username)
     except jwt.PyJWTError as err:
-        # TODO: logging
-        token_data = None
+        raise err
     finally:
         return token_data
 

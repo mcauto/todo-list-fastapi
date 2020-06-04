@@ -10,7 +10,7 @@ RUN set -ex && apk update \
 # build-base: gevent dependency
 # libffi-dev: bcrypt dependency
 RUN set -ex && apk update \
-    && apk add build-base libffi-dev \
+    && apk add build-base libffi-dev libressl-dev openssl-dev musl-dev\
     && rm -rf /var/cache/apk/*
 
 # centos7에서 pip upgrade 중 EnvironmentError [Errno 39] “Directory not empty” 발생
@@ -33,5 +33,6 @@ WORKDIR /code
 # -- install dependency with pip
 ONBUILD COPY requirements.txt requirements.txt
 ONBUILD RUN set -ex & pip install -r requirements.txt
+ONBUILD RUN apk del build-base libffi-dev libressl-dev openssl-dev musl-dev
 # -- Install Application into container:
 ONBUILD COPY src src

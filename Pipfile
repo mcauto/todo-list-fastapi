@@ -36,6 +36,7 @@ bcrypt = "*"
 # database orm
 sqlalchemy = "*"
 pymysql = "*"
-
+# jwt rsa algorithm
+cryptography = "*"
 [requires]
 python_version = "3.8"
