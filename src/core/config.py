@@ -32,8 +32,9 @@ class Settings(BaseSettings):
     """
 
     API_VERSION_PREFIX: str = "/api/v1"
-    SECRET_KEY: str = "have to change secret key"
-    JWT_ALGORITHM: str = "HS256"
+    PRIVATE_KEY: str = ""
+    PUBLIC_KEY: str = ""
+    JWT_ALGORITHM: str = "RS256"
 
     ACCESS_TOKEN_EXPIRE_SECONDS: int = 86400 * 7
     USER_REPOSITORY_PATH: str = ""
@@ -49,6 +50,16 @@ class Settings(BaseSettings):
         else:
             raise ValueError(v)
         return result
+
+    @validator("PRIVATE_KEY", pre=True)
+    def __set_private_key(cls, path: str) -> str:  # noqa
+        private_key = open(path).read()
+        return private_key
+
+    @validator("PUBLIC_KEY", pre=True)
+    def __set_public_key(cls, path: str) -> str:  # noqa
+        public_key = open(path).read()
+        return public_key
 
     class Config:
         """ setting의 부가 설정 """
