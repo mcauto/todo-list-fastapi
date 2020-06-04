@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.7.1...v1.8.0) (2020-06-04)
+
+
+### Features
+
+* **jwt:** change token algorithm (HS256 -> RS256) ([#40](https://github.com/mcauto/todo-list-fastapi/issues/40)) ([9c9370f](https://github.com/mcauto/todo-list-fastapi/commit/9c9370f40107006bb8bcfd9a19457689f0cb2649))
+
 ### [1.7.1](https://github.com/mcauto/todo-list-fastapi/compare/v1.7.0...v1.7.1) (2020-06-03)
 
 
