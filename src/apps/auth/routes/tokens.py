@@ -5,13 +5,15 @@ from fastapi.routing import APIRouter
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 from starlette import status
 
-from ..di.database import get_user_repository
+
 from ..exceptions import FailureSignInException
 from ..models.domain.tokens import TokenType
 from ..models.schemas.tokens import TokenResponse
 from ..repository import UserRepository
 from ..repository.mysql import UserMysqlRepository
 from ..services import authenticate_user, create_access_token
+from ....core.database import get_database_session
+from sqlalchemy.orm import Session
 
 token = APIRouter()
 
@@ -24,10 +26,9 @@ token = APIRouter()
 )
 async def sign_in(
     form_data: OAuth2PasswordRequestForm = Depends(),
-    repository: UserRepository = Depends(
-        get_user_repository(UserMysqlRepository)
-    ),
+    session: Session = Depends(get_database_session),
 ) -> Dict[str, Any]:
+    repository: UserRepository = UserMysqlRepository(session)
     user = await authenticate_user(
         repository=repository,
         username=form_data.username,
