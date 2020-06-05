@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/mcauto/todo-list-fastapi/compare/v1.8.0...v1.8.1) (2020-06-05)
+
+
+### Bug Fixes
+
+* **database:** fix database session leak ([#41](https://github.com/mcauto/todo-list-fastapi/issues/41)) ([cb46f21](https://github.com/mcauto/todo-list-fastapi/commit/cb46f215118e08031236132c5b46c08e8546d381))
+
 ## [1.8.0](https://github.com/mcauto/todo-list-fastapi/compare/v1.7.1...v1.8.0) (2020-06-04)
 
 
