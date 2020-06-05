@@ -41,4 +41,8 @@ RUN mkdir run data
 
 COPY src/apps/auth/repository/users.json ${USER_REPOSITORY_PATH}
 
+COPY private_key .
+
+COPY public_key .
+
 CMD ["python", "-m", "uvicorn", "src.asgi:app","--host","0.0.0.0","--port","5000"]

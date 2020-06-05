@@ -7,16 +7,17 @@ from fastapi.security.oauth2 import OAuth2PasswordBearer, SecurityScopes
 
 from ...core.config import settings
 from .constants import UserPermission
-from .di.database import get_user_repository
 from .exceptions import (
     CredendtialException,
     ForbiddenException,
     InactiveUserException,
 )
+from sqlalchemy.orm import Session
 from .models.domain.tokens import TokenData
 from .models.domain.users import User, UserInDB
 from .repository.base import UserRepository
 from .repository.mysql import UserMysqlRepository
+from ...core.database import get_database_session
 
 __support_scopes = {
     "TODOS/POST": "register todos",
@@ -33,11 +34,10 @@ oauth2_scheme = OAuth2PasswordBearer(
 async def get_current_user(
     security_scopes: SecurityScopes,
     token: str = Depends(oauth2_scheme),
-    repository: UserRepository = Depends(
-        get_user_repository(UserMysqlRepository)
-    ),
+    session: Session = Depends(get_database_session),
 ) -> Optional[User]:
     """ 현재 요청한 유저 확인 """
+    repository = UserMysqlRepository(session)
     credential_exception = __build_credential_exception(
         scopes=security_scopes.scope_str
     )

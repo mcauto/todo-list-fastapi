@@ -3,7 +3,7 @@
 """
 from typing import Optional
 
-from ....core.database import SessionLocal
+from sqlalchemy.orm import Session
 from ..models.domain.users import UserInDB
 from ..models.entity.users import User
 from ..models.schemas.users import UserCreateRequest
@@ -12,9 +12,9 @@ from ..repository.exceptions import UserNotFoundException
 
 
 class UserMysqlRepository(UserRepository):
-    def __init__(self) -> None:
+    def __init__(self, session: Session) -> None:
         super(UserMysqlRepository, self).__init__()
-        self.session = SessionLocal()
+        self._session = session
 
     async def get_signed_user(
         self, username: str, password: str
@@ -37,7 +37,7 @@ class UserMysqlRepository(UserRepository):
         return UserInDB.from_orm(user)
 
     def _find_by_name(self, name: str) -> Optional[User]:
-        user: Optional[User] = self.session.query(User).filter(
+        user: Optional[User] = self._session.query(User).filter(
             User.username == name
         ).first()
         return user
@@ -54,12 +54,12 @@ class UserMysqlRepository(UserRepository):
                 hashed_password=hashed_password,
             ).dict()
         )
-        self.session.add(user_orm)
-        self.session.commit()
-        self.session.refresh(user_orm)
+        self._session.add(user_orm)
+        self._session.commit()
+        self._session.refresh(user_orm)
         return UserInDB.from_orm(user_orm)
 
     async def delete(self, username: str) -> None:
         user = self._find_by_name(username)
-        self.session.delete(user)
-        self.session.commit()
+        self._session.delete(user)
+        self._session.commit()
