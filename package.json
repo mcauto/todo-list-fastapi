@@ -10,7 +10,8 @@
         "lint": "make lint",
         "test": "make test",
         "release": "standard-version",
-        "version": "echo v$npm_package_version"
+        "version": "echo v$npm_package_version",
+        "next-version": "node ./get-next-version.js"
     },
     "devDependencies": {
         "@commitlint/cli": "^8.3.5",
