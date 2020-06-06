@@ -29,5 +29,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mcauto/todo-list-fastapi
           dockerfile: app.Dockerfile
-          build_args: BASE_IMAGE=mcauto/todo-list-fastapi-base
+          build_args: BASE_IMAGE=mcauto/todo-list-fastapi-base:latest
           tag_with_ref: true
