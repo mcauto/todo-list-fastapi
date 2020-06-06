@@ -29,6 +29,8 @@ jobs:
           npm install yarn
           yarn install
       - name: Commit files
+        env:
+          HUSKY_SKIP_HOOKS: 1 
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
