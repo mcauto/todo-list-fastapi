@@ -57,3 +57,20 @@ jobs:
             ${{ env.DESCRIPTION }}
           draft: false
           prerelease: false
+      - name: Build and push Docker base images
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: mcauto/todo-list-fastapi-base
+          dockerfile: base.Dockerfile
+          tags: v${{ env.VERSION }}, latest
+      - name: Build and push Docker app images
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: mcauto/todo-list-fastapi
+          dockerfile: app.Dockerfile
+          build_args: BASE_IMAGE=mcauto/todo-list-fastapi-base:latest
+          tags: v${{ env.VERSION }}, latest
