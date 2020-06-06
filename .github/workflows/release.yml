@@ -33,7 +33,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           export DESCRIPTION=$(yarn run standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)
+          export VERSION=$(npm run next-version | tail -1)
           echo "::set-env name=DESCRIPTION::$DESCRIPTION"
+          echo "::set-env name=VERSION::$VERSION"
           yarn release
           git push --follow-tags origin master
       - name: Push changes
@@ -47,8 +49,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
           body: |
             ${{ env.DESCRIPTION }}
           draft: false
