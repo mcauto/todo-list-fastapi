@@ -50,6 +50,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            $DESCRIPTION
+            ${{ env.DESCRIPTION }}
           draft: false
           prerelease: false
