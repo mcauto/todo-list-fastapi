@@ -23,7 +23,7 @@ jobs:
           DESCRIPTION="${DESCRIPTION//'%'/'%25'}"
           DESCRIPTION="${DESCRIPTION//$'\n'/'%0A'}"
           DESCRIPTION="${DESCRIPTION//$'\r'/'%0D'}"
-          echo "::set-env DESCRIPTION=$DESCRIPTION"
+          echo "::set-env DESCRIPTION=::$DESCRIPTION"
       - name: check env
         run: |
           echo "description: ${{ env.DESCRIPTION }}"
