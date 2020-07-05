@@ -19,3 +19,7 @@ jobs:
           npm install yarn
           yarn install
           make current_changelog
+          export DESCRIPTION="$(yarn run standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)"
+          echo "::set-env DESCRIPTION=$DESCRIPTION"
+          echo ${{ env.DESCRIPTION}}
+          
