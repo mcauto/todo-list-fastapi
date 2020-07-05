@@ -89,6 +89,7 @@ c690c36b61df        todo-list-fastapi   "python -m uvicorn s…"   2 seconds ago
 #### 실행 화면
 
 ![running2](docs/running2.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmcauto%2Ftodo-list-fastapi.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmcauto%2Ftodo-list-fastapi?ref=badge_shield)
 
 swagger: http://localhost:5000/docs
 
@@ -166,3 +167,6 @@ Coverage HTML written to dir public/coverage
 Coverage XML written to file cov.xml
 
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmcauto%2Ftodo-list-fastapi.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmcauto%2Ftodo-list-fastapi?ref=badge_large)
