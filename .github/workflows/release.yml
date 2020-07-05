@@ -35,8 +35,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           export DESCRIPTION=$(yarn run standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)
-          export VERSION=$(npm run next-version | tail -1)
-          echo "::set-env name=DESCRIPTION::$DESCRIPTION"
+          export DESCRIPTION_BASE64=$(echo -n $DESCRIPTION | base64)
+          export VERSION=$(npm run next-version | tail -1)          
+          echo "::set-env name=DESCRIPTION_BASE64::$DESCRIPTION_BASE64"
           echo "::set-env name=VERSION::$VERSION"
           yarn release
           git push --follow-tags origin master
@@ -53,7 +54,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           release_name: Release v${{ env.VERSION }}
-          body: ${{ env.DESCRIPTION }}
+          body: echo ${{ env.DESCRIPTION_BASE64 }} | base64 --decode
           draft: false
           prerelease: false
       - name: Build and push Docker base images
