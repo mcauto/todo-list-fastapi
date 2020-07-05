@@ -53,8 +53,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           release_name: Release v${{ env.VERSION }}
-          body: |
-            ${{ env.DESCRIPTION }}
+          body: ${{ env.DESCRIPTION }}
           draft: false
           prerelease: false
       - name: Build and push Docker base images
