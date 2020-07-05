@@ -34,10 +34,12 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          export DESCRIPTION=$(yarn run standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)
-          export DESCRIPTION_BASE64=$(echo -n $DESCRIPTION | base64)
-          export VERSION=$(npm run next-version | tail -1)          
-          echo "::set-env name=DESCRIPTION_BASE64::$DESCRIPTION_BASE64"
+          VERSION=$(npm run next-version | tail -1)
+          DESCRIPTION=$(yarn run standard-version --dry-run --silent | grep -v yarn | grep -v Done | grep -v "\-\-\-" | grep -v standard-version)
+          DESCRIPTION="${DESCRIPTION//'%'/'%25'}"
+          DESCRIPTION="${DESCRIPTION//$'\n'/'%0A'}"
+          DESCRIPTION="${DESCRIPTION//$'\r'/'%0D'}"    
+          echo "::set-env name=DESCRIPTION::$DESCRIPTION"
           echo "::set-env name=VERSION::$VERSION"
           yarn release
           git push --follow-tags origin master
