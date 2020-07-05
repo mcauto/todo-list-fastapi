@@ -54,7 +54,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           release_name: Release v${{ env.VERSION }}
-          body: echo ${{ env.DESCRIPTION_BASE64 }} | base64 --decode
+          body: $(echo ${{ env.DESCRIPTION_BASE64 }} | base64 --decode)
           draft: false
           prerelease: false
       - name: Build and push Docker base images
